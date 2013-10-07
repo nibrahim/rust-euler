@@ -6,3 +6,6 @@ all: $(targets)
 %.run: %.rs
 	rustc $< -o $@
 	./$@
+
+clean:
+	rm *.run

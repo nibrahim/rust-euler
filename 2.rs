@@ -12,9 +12,9 @@ fn sum_of_even_fibs (limit: int) -> int {
         n1 = n;
         if (n % 2 == 0) {
             sum += n;
-            println((fmt!("%d(%d)",n, sum)));
+            println((format!("{}({})",n, sum)));
         } else {
-            println(fmt!("%d",n));
+            println(format!("{}",n));
         }
         cntr += 1;
     }
@@ -22,7 +22,7 @@ fn sum_of_even_fibs (limit: int) -> int {
 }
 
 fn main() {
-    println(fmt!("sum : %d\n",
-                 sum_of_even_fibs(4000000)));
+    println(format!("sum : {}\n",
+                    sum_of_even_fibs(4000000)));
 
     }

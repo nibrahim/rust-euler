@@ -7,5 +7,5 @@ fn main() {
         }
         cntr+=1;
     }
-    println(fmt!("%d\n", sum));
+    println(format!("{}\n", sum));
 }

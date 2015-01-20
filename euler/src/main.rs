@@ -1,10 +1,30 @@
 use std::collections::HashSet;
+use std::collections::HashMap;
 use std::iter::range_step;
+use std::num::Int;
 
 // Helper functions
 
 fn test() {
     let mut cancelled:HashSet<i64> = HashSet::new();
+    let mut t:HashMap<int,int> = HashMap::new();
+    let mut u:HashMap<int,int> = HashMap::new();
+    t.insert(1,1);
+    println!("{}", t);
+    t.insert(1,3);
+    t.insert(5,4);
+    println!("{}", t);
+    
+    for (k,v) in t.iter() {
+        println!("{} :: {}", k, v);
+        match t.get(k) {
+            Some(a) => {u.insert(*k, *a);},
+            None => {println!("Nothing");}
+        }
+        u.insert(*k, *v);
+    }
+
+
     cancelled.insert(34i64);
     println!("{}", cancelled);
     
@@ -25,6 +45,20 @@ fn test() {
 
     }
 
+fn primes(n:int) -> Vec<int> {
+    let mut cancelled:HashSet<int> = HashSet::new();
+    let mut primes:Vec<int> = Vec::new();
+    for i in range(2i, n+1i) {
+        println!("{}", primes);
+        if !cancelled.contains(&i) {
+            primes.push(i);
+            for j in range_step(i, n+1, i) {
+                cancelled.insert(j);
+            }
+        }
+    }
+    return primes;
+}
 
 fn isprime(n:int) -> bool {
   if n % 2 == 0 {
@@ -46,7 +80,53 @@ fn isprime(n:int) -> bool {
     return true
 }
 
+fn factorise(n:int) -> Vec<int> {
+    let mut factors:Vec<int> = Vec::new();
+    let mut n = n;
+    while n != 1 {
+        for i in range(2i, n+1) {
+            if isprime(i)  {
+                if n%i == 0 {
+                    factors.push(i);
+                    n = n/i;
+                    break;
+                } 
+            } 
+        }
+    }
+    factors
+}
+
 // Solutions start here.
+
+fn problem5() -> int {
+    let mut max_prime_powers:HashMap<int, int> = HashMap::new();
+    for i in range(1, 21) {
+        let mut prime_powers:HashMap<int,int> = HashMap::new();
+        let factors = factorise(i);
+        for j in factors.iter() {
+            let n = match prime_powers.get(j) {
+                Some(t) => *t + 1,
+                None => 1
+            };
+            prime_powers.insert(*j, n);
+        }
+
+        for (k,v) in prime_powers.iter() {
+            let n = match max_prime_powers.get(k) {
+                Some(t) => { if t < v { *v } else { *t }},
+                None => *v,
+            };
+            max_prime_powers.insert(*k, n);
+        }
+    }
+    let mut prod:int = 1;
+    for (k,v) in max_prime_powers.iter() {
+        prod = prod * k.pow(*v as uint);
+    }
+    prod
+
+}
 
 fn problem4() -> int {
     let mut ret:int = 0;
@@ -116,7 +196,8 @@ fn main() {
     println!("Problem 1 : {}\n", problem1(1000));
     println!("Problem 2 : {}\n", problem2(4000000));
     println!("Problem 3 : {}\n", problem3(600851475143));
-    println!("Problem 4 : {}\n", problem4());
+    println!("Problem 4 : {}\n", problem4()); 
+    println!("Problem 5 : {}\n", problem5());
     //600851475143
 
 

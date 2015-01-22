@@ -2,6 +2,7 @@ use std::collections::HashSet;
 use std::collections::HashMap;
 use std::iter::range_step;
 use std::num::Int;
+use std::num::Float;
 
 // Helper functions
 
@@ -49,7 +50,6 @@ fn primes(n:int) -> Vec<int> {
     let mut cancelled:HashSet<int> = HashSet::new();
     let mut primes:Vec<int> = Vec::new();
     for i in range(2i, n+1i) {
-        println!("{}", primes);
         if !cancelled.contains(&i) {
             primes.push(i);
             for j in range_step(i, n+1, i) {
@@ -98,6 +98,23 @@ fn factorise(n:int) -> Vec<int> {
 }
 
 // Solutions start here.
+
+fn problem7(n:int) -> int{
+    let p = primes(n);
+    p[10000]
+    // match p.pop() {
+    //     Some(t) => t,
+    //     None => 0
+    //     }
+    }
+
+fn problem6(n:int) -> int{
+    let n = n as f64;
+    let sum_of_squares = (n*(n+1f64)*(2f64*n + 1f64))/6f64;
+    let sum = (n * (n+1f64))/2f64;
+    (sum.powi(2) - sum_of_squares ) as int
+
+    }
 
 fn problem5() -> int {
     let mut max_prime_powers:HashMap<int, int> = HashMap::new();
@@ -198,6 +215,8 @@ fn main() {
     println!("Problem 3 : {}\n", problem3(600851475143));
     println!("Problem 4 : {}\n", problem4()); 
     println!("Problem 5 : {}\n", problem5());
+    println!("Problem 6 : {}\n", problem6(100));
+    println!("Problem 7 : {}\n", problem7(200000));
     //600851475143
 
 

@@ -7,7 +7,7 @@ use std::str::StrExt;
 // use std::char::CharExt;
 
 // Helper functions
-
+#[cfg(not(test))]
 fn test() {
     let mut cancelled:HashSet<i64> = HashSet::new();
     let mut t:HashMap<int,int> = HashMap::new();
@@ -27,7 +27,7 @@ fn test() {
         u.insert(*k, *v);
     }
 
-
+    println!("Primes :: {}", primes(50));
     cancelled.insert(34i64);
     println!("{}", cancelled);
     
@@ -56,8 +56,8 @@ fn test() {
 
 fn primes(n:int) -> Vec<int> {
     let mut cancelled:HashSet<int> = HashSet::new();
-    let mut primes:Vec<int> = Vec::new();
-    for i in range(2i, n+1i) {
+    let mut primes:Vec<int> = vec![2];
+    for i in range_step(3i, n+1i, 2) {
         if !cancelled.contains(&i) {
             primes.push(i);
             for j in range_step(i, n+1, i) {
@@ -106,6 +106,11 @@ fn factorise(n:int) -> Vec<int> {
 }
 
 // Solutions start here.
+
+fn problem10() -> int {
+    let primes = primes(2000000);
+    primes.iter().fold(0, |x, &y| {x + y})
+    }
 
 fn problem9() -> int {
     let m = 1000i;
@@ -242,19 +247,95 @@ fn problem1(lim:int) -> int {
 
 
 
+#[cfg(not(test))]
 fn main() {
     test();
-    println!("------------------------------------------------------\n");
-    println!("Problem 1 : {}", problem1(1000));
-    println!("Problem 2 : {}", problem2(4000000));
-    println!("Problem 3 : {}", problem3(600851475143));
-    println!("Problem 4 : {}", problem4()); 
-    println!("Problem 5 : {}", problem5());
-    println!("Problem 6 : {}", problem6(100));
-    println!("Problem 7 : {}", problem7(200000));
-    println!("Problem 8 : {}", problem8(13));
-    println!("Problem 9 : {}", problem9());
-    //600851475143
+    // Answers
+    // Problem  1 : 233168
+    // Problem  2 : 4613732
+    // Problem  3 : 6857
+    // Problem  4 : 906609
+    // Problem  5 : 232792560
+    // Problem  6 : 25164150
+    // Problem  7 : 104743
+    // Problem  8 : 23514624000
+    // Problem  9 : 31875000
+    // Problem 10 : 0
+    let val = problem7(200000);
+    println!("Problem 7 : {}  (104743)", val);
+    assert_eq!(val, 104743);
 
-
+    // println!(" Problem 10 {}",    problem10());
 }
+
+#[test]
+fn test_problem1() {
+    let val = problem1(1000);
+    println!("Problem  1 : {}", val);
+    assert_eq!(val, 233168);
+}
+
+#[test]
+fn test_problem2() {
+    let val = problem2(4000000);
+    println!("Problem 2 : {}", val);
+    assert_eq!(val, 4613732);
+}
+
+#[test]
+fn test_problem3() {
+    let val = problem3(600851475143);
+    println!("Problem 3 : {}", val);
+    assert_eq!(val, 6857);
+}
+
+#[test]
+fn test_problem4() {
+    let val = problem4();
+    println!("Problem 4 : {}", val);
+    assert_eq!(val, 906609);
+}
+
+#[test]
+fn test_problem5() {
+    let val = problem5();
+    println!("Problem 5 : {}", val);
+    assert_eq!(val, 232792560);
+}
+
+#[test]
+fn test_problem6() {
+    let val = problem6(100);
+    println!("Problem 6 : {}", val);
+    assert_eq!(val, 25164150);
+}
+
+#[test]
+fn test_problem7() {
+    let val = problem7(200000);
+    println!("Problem 7 : {}", val);
+    assert_eq!(val, 104743);
+}
+
+#[test]
+fn test_problem8() {
+    let val = problem8(13);
+    println!("Problem 8 : {}", val);
+    assert_eq!(val, 23514624000);
+}
+
+#[test]
+fn test_problem9() {
+    let val = problem9();
+    println!("Problem 9 : {}", val);
+    assert_eq!(val, 31875000);
+}
+
+#[test]
+fn test_problem10() {
+    let val = problem10();
+    println!("Problem 10 : {}", val);
+    assert_eq!(val, 142913828922);
+}
+
+
